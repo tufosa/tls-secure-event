@@ -22,7 +22,8 @@ function createServer() {
       key,
       cert,
       ca
-    }, ss => console.log('secureConnection'));
+    }, ss => console.log('secureConnection - ', ss.getProtocol(), ' - ',
+      ss.getCipher()));
     server.listen(() => ok(server.address().port));
   });
 }
@@ -61,7 +62,8 @@ function createClientTLSSocket(port, write = false) {
         ok();
       });
       secureSocket.on('secure', () => {
-        console.log('secure');
+        console.log('secure - ', secureSocket.getProtocol(), ' - ',
+          secureSocket.getCipher());
         ok();
       });
       if(write) secureSocket.write('');
